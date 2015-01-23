@@ -1,11 +1,18 @@
-var KongServer = require('./index.js');
+var KongServer = require('./index.js'),
+    _ = require('lodash'),
+    config = {};
 
-var config = {
-  version: process.env.VERSION || 'development',
-  port: process.env.PORT || 3000,
-  keyFile: process.env.KEYFILE || '.kongkeys.json'
+try {
+  config = require(process.env.CONFIG || './.kongconfig.json');
+} catch(ex) {
+  console.error("Could not load .kongconfig.json file - please ensure that one is present or set CONFIG=file");
 };
+
+_.defaults(config, {
+  port: 3000,
+  version: 'development'
+});
 
 var app = new KongServer(config);
 
-app.listen(config.port);
+app.listen(process.env.PORT || config.port);
