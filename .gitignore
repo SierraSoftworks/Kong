@@ -1,3 +1,4 @@
 /node_modules
-.kongkeys.json
-.kongconfig.json
+kongkeys.json
+kongconfig.json
+npmdebug.log
