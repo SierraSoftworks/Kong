@@ -9,8 +9,8 @@
     "user": "{{keys.pushover.user}}",
     "title": "{{source.project_name}}",
     "message": "Build Failed",
-    "timestamp": "{{source.build_finished_at.getTime()}}",
+    "timestamp": "{{timestamp source.build_finished_at}}",
     "url": "{{source.gitlab_url}}/builds/{{source.build_id}}",
     "url_title": "View Build Log"
   }
-};
+}
