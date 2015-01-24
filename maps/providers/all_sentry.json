@@ -1,0 +1,12 @@
+{
+  "source": "*",
+  "target": "sentry",
+  "when": { },
+  "map": {
+    "message": "Push from {{source}}",
+    "level": "log",
+    "extra": {
+      "notification": { "$": "notification" }
+    }
+  }
+}
