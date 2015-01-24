@@ -1,0 +1,9 @@
+{
+	"server": "run.js",
+	"ports": [30090, 30091],
+	"timeout": 5000,
+	"environment": {
+		"NODE_ENV": "production"
+	},
+	"watch": []
+}

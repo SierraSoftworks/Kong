@@ -1,0 +1,20 @@
+{
+	"server": "../run.js",
+	"ports": [3000],
+	"timeout": 5000,
+	"environment": {
+		"NODE_ENV": "production"
+	},
+	"watch": [
+		"../api/**/*.js",
+		"../distributors/**/*.js",
+		"../endpoints/**/*.js",
+		"../maps/**/*.js",
+		"../maps/providers/*.json",
+		"../utils/**/*.js",
+		"../index.js",
+		"../run.js",
+		"../kongconfig.json",
+		"../kongkeys.json"
+	]
+}
