@@ -1,0 +1,10 @@
+{
+  "source": "test",
+  "target": "pushbullet",
+  "when": {},
+  "map": {
+    "type": "note",
+    "title": "{{source.title}}",
+    "body": "{{source.message}}"
+  }
+}

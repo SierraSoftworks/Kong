@@ -1,5 +1,5 @@
 {
-  "source": "gitlab",
+  "source": "gitlabci",
   "target": "pushover",
   "when": {
     "build_status": "failed"

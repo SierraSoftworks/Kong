@@ -1,0 +1,14 @@
+{
+  "source": "gitlabci",
+  "target": "pushbullet",
+  "when": {
+    "build_status": "failed"
+  },
+  "map": {
+    "type": "link",
+    "title": "{{source.project_name}}",
+    "body": "Build Failed\nClick to view the build log",
+    "timestamp": "{{timestamp source.build_finished_at}}",
+    "url": "{{source.gitlab_url}}/builds/{{source.build_id}}"
+  }
+}

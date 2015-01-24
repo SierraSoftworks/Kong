@@ -1,0 +1,9 @@
+{
+  "source": "test",
+  "target": "pushover",
+  "when": {},
+  "map": {
+    "title": "{{source.title}}",
+    "message": "{{source.message}}"
+  }
+}
