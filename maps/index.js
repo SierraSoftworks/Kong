@@ -31,6 +31,9 @@ MapProvider.prototype.distribute = function(source, notification) {
     var distributor = this.server.distributors[map.target];
     if(!distributor) return this.server.error("distributor '" + map.target + "' could not be found");
 
+    for(var k in map.when)
+      if(notification[k] != map.when[k]) return;
+
     var output = {};
     for(var k in map.transforms) {
       output[k] = map.transforms[k]({
