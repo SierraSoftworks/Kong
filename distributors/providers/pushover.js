@@ -2,7 +2,7 @@ var restify = require('restify'),
 	_ = require('lodash'),
     Q = require('q');
 
-var api = restify.createJsonClient({
+var api = restify.createStringClient({
   url: 'https://api.pushover.net'
 });
 
@@ -16,7 +16,7 @@ module.exports = function(server, notification) {
 
   api.post("/1/messages.json", notification, function(err, req, res, obj) {
     if(err) return defered.reject(err);
-    defered.resolve(obj);
+    defered.resolve(JSON.parse(obj));
   });
 
   return defered.promise;
