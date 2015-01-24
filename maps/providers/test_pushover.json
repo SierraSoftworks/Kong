@@ -3,7 +3,7 @@
   "target": "pushover",
   "when": {},
   "map": {
-    "title": "{{source.title}}",
-    "message": "{{source.message}}"
+    "title": "{{notification.title}}",
+    "message": "{{notification.message}}"
   }
 }

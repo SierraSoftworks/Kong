@@ -39,7 +39,8 @@ MapProvider.prototype.distribute = function(source, notification) {
       output[k] = map.transforms[k]({
         config: this.server.config,
         keys: this.server.keys,
-        source: notification
+        source: source,
+        notification: notification
       });
     }
 
@@ -53,7 +54,7 @@ MapProvider.prototype.distribute = function(source, notification) {
 MapProvider.prototype.register = function(definition) {
   definition.transforms = {};
   for(var k in definition.map) {
-    definition.transforms[k] = Handlebars.compile(definition.map[k], { noEscape: true });
+    definition.transforms[k] = makeTransform(definition.map[k]);
   }
   log("%s => %s %j", definition.source, definition.target, definition.when);
   this.maps.push(definition);
@@ -69,3 +70,15 @@ MapProvider.prototype.registerAll = function() {
     }
   }, this);
 };
+
+function makeTransform(definition) {
+  if(_.isString(definition)) return Handlebars.compile(definition, { noEscape: true });
+  return function(values) {
+    var result = {};
+    for(var k in definition) {
+      if(k == '$') return _.merge(result, values[definition[k]]);
+      else result[k] = makeTransform(definition[k])(values);
+    }
+    return result;
+  }
+}

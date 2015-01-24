@@ -6,9 +6,9 @@
   },
   "map": {
     "type": "link",
-    "title": "{{source.project_name}}",
+    "title": "{{notification.project_name}}",
     "body": "Build Failed\nClick to view the build log",
-    "timestamp": "{{timestamp source.build_finished_at}}",
-    "url": "{{source.gitlab_url}}/builds/{{source.build_id}}"
+    "timestamp": "{{timestamp notification.build_finished_at}}",
+    "url": "{{notification.gitlab_url}}/builds/{{notification.build_id}}"
   }
 }

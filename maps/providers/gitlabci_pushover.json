@@ -7,10 +7,10 @@
   "map": {
     "token": "{{keys.pushover.token}}",
     "user": "{{keys.pushover.user}}",
-    "title": "{{source.project_name}}",
+    "title": "{{notification.project_name}}",
     "message": "Build Failed",
-    "timestamp": "{{timestamp source.build_finished_at}}",
-    "url": "{{source.gitlab_url}}/builds/{{source.build_id}}",
+    "timestamp": "{{timestamp notification.build_finished_at}}",
+    "url": "{{notification.gitlab_url}}/builds/{{notification.build_id}}",
     "url_title": "View Build Log"
   }
 }
