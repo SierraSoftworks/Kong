@@ -5,7 +5,7 @@ module.exports = function(server, notification) {
   var defered = Q.defer();
 
   _.defaults(notification, {
-    level: 'log',
+    level: 'info',
     version: server.config.version
   });
 
