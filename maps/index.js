@@ -53,9 +53,9 @@ MapProvider.prototype.distribute = function(source, notification) {
 
     debug("%s %j => %s %j", source, notification, map.target, output);
     return distributor(output).then(function(result) {
-      return Q.resolve({ source: source, target: map.target, success: true, result: result })
+      return Q.resolve({ source: source, target: map.target, success: true, result: result });
     }, function(err) {
-      { source: source, target: map.target, success: false, result: err }
+      return Q.reject({ source: source, target: map.target, success: false, result: err });
     });
   }, this);
 
