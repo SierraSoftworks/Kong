@@ -46,7 +46,6 @@ MapProvider.prototype.distribute = function(source, notification) {
           source: source,
           notification: notification
         });
-      }
       } catch(ex) {
         return Q.reject({ source: source, target: map.target, success: false, result: new Error("Template error in " + map.id + ":" + k + " (" + map.map[k] + ")") });
       }
