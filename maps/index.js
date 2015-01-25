@@ -53,7 +53,7 @@ MapProvider.prototype.distribute = function(source, notification) {
 
     debug("%s %j => %s %j", source, notification, map.target, output);
     return distributor(output).then(function(result) {
-      return Q.resolve({ source: source, target: map.target, success: true, result: result });
+      return Q({ source: source, target: map.target, success: true, result: result });
     }, function(err) {
       return Q.reject({ source: source, target: map.target, success: false, result: err });
     });
@@ -76,7 +76,13 @@ MapProvider.prototype.registerAll = function(directory) {
   _.each(fs.readdirSync(directory), function(filename) {
     if(/\.json$/.test(filename)) {
       log("registering %s", filename);
-      this.register(require(path.resolve(directory, filename)), filename);
+      try {
+        this.register(require(path.resolve(directory, filename)), filename);
+      } catch(ex) {
+        var error = new Error("Failed to load map file. " + ex.message);
+        error.stack = ex.stack;
+        this.server.error(error, { file: filename });
+      }
     }
   }, this);
 };
