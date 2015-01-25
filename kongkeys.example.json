@@ -1,9 +1,0 @@
-{
-  "pushover": {
-    "token": "",
-    "user": ""
-  },
-  "pushbullet": {
-    "token": ""
-  }
-}

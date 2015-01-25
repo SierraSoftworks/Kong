@@ -1,3 +1,17 @@
 {
-  "raven": ""
+  "raven": "",
+  "endpoints": "/kong/endpoints",
+  "distributors": "/kong/distributors",
+  "helpers": "/kong/helpers",
+  "maps": "/kong/maps",
+
+  "keys": {
+	  "pushover": {
+	    "token": "",
+	    "user": ""
+	  },
+	  "pushbullet": {
+	    "token": ""
+	  }
+	}
 }
