@@ -4,7 +4,8 @@ var _ = require('lodash'),
     fs = require('fs'),
     path = require('path'),
     log = require('debug')('kong:maps:log'),
-    debug = require('debug')('kong:maps:debug');
+    debug = require('debug')('kong:maps:debug'),
+    Q = require('q');
 
 var match = require('../utils/PathMatcher.js');
 
@@ -38,22 +39,32 @@ MapProvider.prototype.distribute = function(source, notification) {
 
     var output = {};
     for(var k in map.transforms) {
-      output[k] = map.transforms[k]({
-        config: this.server.config,
-        keys: this.server.keys,
-        source: source,
-        notification: notification
-      });
+      try {
+        output[k] = map.transforms[k]({
+          config: this.server.config,
+          keys: this.server.keys,
+          source: source,
+          notification: notification
+        });
+      }
+      } catch(ex) {
+        return Q.reject({ source: source, target: map.target, success: false, result: new Error("Template error in " + map.id + ":" + k + " (" + map.map[k] + ")") });
+      }
     }
 
     debug("%s %j => %s %j", source, notification, map.target, output);
-    return distributor(output);
+    return distributor(output).then(function(result) {
+      return Q.resolve({ source: source, target: map.target, success: true, result: result })
+    }, function(err) {
+      { source: source, target: map.target, success: false, result: err }
+    });
   }, this);
 
   return Q.all(pending);
 };
 
-MapProvider.prototype.register = function(definition) {
+MapProvider.prototype.register = function(definition, id) {
+  definition.id = id;
   definition.transforms = {};
   for(var k in definition.map) {
     definition.transforms[k] = makeTransform(definition.map[k]);
@@ -66,7 +77,7 @@ MapProvider.prototype.registerAll = function(directory) {
   _.each(fs.readdirSync(directory), function(filename) {
     if(/\.json$/.test(filename)) {
       log("registering %s", filename);
-      this.register(require(path.resolve(directory, filename)));
+      this.register(require(path.resolve(directory, filename)), filename);
     }
   }, this);
 };

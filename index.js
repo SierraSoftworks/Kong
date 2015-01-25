@@ -51,10 +51,12 @@ module.exports = function(config, keys) {
   }));
 
   server.notify = function(source, notification) {
-    server.maps.distribute(source, notification).then(function() {
+    server.maps.distribute(source, notification).then(function(result) {
       logDistribution("=> %s %j", source, notification);
     }).catch(function(errors) {
-      _.each(errors, server.error, server);
+      _.each(errors, function(error) {
+        server.error(error.result, { source: error.source, target: error.target })
+      });
     });
   };
 
