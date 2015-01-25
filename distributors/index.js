@@ -18,8 +18,8 @@ DistributionProvider.prototype.register = function(name, distributor) {
   this[name] = distributor.bind(null, this.server);
 };
 
-DistributionProvider.prototype.registerAll = function() {
-  var directory = path.resolve(__dirname, "providers");
+DistributionProvider.prototype.registerAll = function(directory) {
+  directory = directory || path.resolve(__dirname, "providers");
 
   _.each(fs.readdirSync(directory), function(filename) {
     if(/\.js$/.test(filename)) {

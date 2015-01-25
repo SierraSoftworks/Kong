@@ -71,8 +71,12 @@ module.exports = function(config, keys) {
   API(server);
 
   server.distributors.registerAll();
+  if(config.distributors) server.distributors.registerAll(config.distributors);
   server.endpoints.registerAll();
-  server.maps.registerAll();
+  if(config.endpoints) server.endpoints.registerAll(config.endpoints);
+  MapProvider.RegisterHelpers();
+  if(config.helpers) MapProvider.RegisterHelpers(config.helpers);
+  if(config.maps) server.maps.registerAll(config.maps);
 
   function defaultSource(req, res, next) {
     var source = req.params[0];

@@ -8,14 +8,14 @@ var _ = require('lodash'),
 
 var match = require('../utils/PathMatcher.js');
 
-(function(Handlebars, fs, path) {
-  var directory = path.resolve(__dirname, "helpers");
+function registerHelpers(directory) {
+  directory = directory || path.resolve(__dirname, "helpers");
   _.each(fs.readdirSync(directory), function(filename) {
     var helperName = filename.replace(/(.+)\.js$/, function(_, name) { return name; });
     debug("registering Handlebars helper %s", helperName);
     Handlebars.registerHelper(helperName, require(path.resolve(directory, filename)));
   });
-})(Handlebars, fs, path);
+};
 
 module.exports = MapProvider;
 
@@ -23,6 +23,8 @@ function MapProvider(server) {
   this.server = server;
   this.maps = [];
 }
+
+MapProvider.RegisterHelpers = registerHelpers;
 
 MapProvider.prototype.distribute = function(source, notification) {
   var pending = _.map(this.maps, function(map) {
@@ -60,9 +62,7 @@ MapProvider.prototype.register = function(definition) {
   this.maps.push(definition);
 };
 
-MapProvider.prototype.registerAll = function() {
-  var directory = path.resolve(__dirname, "providers");
-
+MapProvider.prototype.registerAll = function(directory) {
   _.each(fs.readdirSync(directory), function(filename) {
     if(/\.json$/.test(filename)) {
       log("registering %s", filename);

@@ -17,8 +17,8 @@ EndpointProvider.prototype.register = function(name, endpoint) {
   this[name] = endpoint(this.server, this.server.notify.bind(this.server, name));
 };
 
-EndpointProvider.prototype.registerAll = function() {
-  var directory = path.resolve(__dirname, "providers");
+EndpointProvider.prototype.registerAll = function(directory) {
+  directory = directory || path.resolve(__dirname, "providers");
 
   _.each(fs.readdirSync(directory), function(filename) {
     if(/\.js$/.test(filename)) {
