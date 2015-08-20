@@ -8,7 +8,6 @@
     "type": "link",
     "title": "{{notification.project_name}}",
     "body": "Build Failed\nClick to view the build log",
-    "timestamp": "{{timestamp notification.build_finished_at}}",
     "url": "{{notification.gitlab_url}}/builds/{{notification.build_id}}"
   }
 }

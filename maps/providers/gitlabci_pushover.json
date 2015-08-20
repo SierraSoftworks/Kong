@@ -9,7 +9,6 @@
     "user": "{{keys.pushover.user}}",
     "title": "{{notification.project_name}}",
     "message": "Build Failed",
-    "timestamp": "{{timestamp notification.build_finished_at}}",
     "url": "{{notification.gitlab_url}}/builds/{{notification.build_id}}",
     "url_title": "View Build Log"
   }
