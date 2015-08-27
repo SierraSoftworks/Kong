@@ -3,7 +3,7 @@ var _ = require('lodash');
 module.exports = function(server) {
 
   server.get('/api/endpoints', function(req, res, next) {
-    res.json(Object.keys(server.endpoints));
+    res.json(200, Object.keys(server.endpoints));
     return next();
   });
 
